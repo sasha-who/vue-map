@@ -31,6 +31,8 @@ export default {
 
   font-size: 18px;
   line-height: 1.3;
+
+  cursor: move;
 }
 
 .route-list__delete-btn {

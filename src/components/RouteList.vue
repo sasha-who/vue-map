@@ -5,12 +5,14 @@
     <RouteForm @add-point="addPoint" />
 
     <ul class="route-list__list" v-if="points.length">
-      <RouteListItem
-        v-for="point in points"
-        :point="point"
-        :key="point.id"
-        @remove-point="removePoint"
-      />
+      <draggable v-model="points">
+        <RouteListItem
+          v-for="point in points"
+          :key="point.id"
+          :point="point"
+          @remove-point="removePoint"
+        />
+      </draggable>
     </ul>
 
     <p class="route-list__notice" v-else>Точки маршрута пока не созданы</p>
@@ -18,12 +20,14 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import RouteForm from '@/components/RouteForm';
 import RouteListItem from '@/components/RouteListItem';
 
 export default {
   props: ['points'],
   components: {
+    draggable,
     RouteForm,
     RouteListItem
   },
@@ -71,7 +75,7 @@ export default {
 .route-list__notice {
   margin-top: 20px;
   margin-bottom: 0;
-  
+
   font-size: 16px;
 
   opacity: 0.7;
