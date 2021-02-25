@@ -4,7 +4,7 @@
 
     <RouteForm @add-point="addPoint" />
 
-    <ul class="route-list__list">
+    <ul class="route-list__list" v-if="points.length">
       <RouteListItem
         v-for="point in points"
         :point="point"
@@ -12,6 +12,8 @@
         @remove-point="removePoint"
       />
     </ul>
+
+    <p class="route-list__notice" v-else>Точки маршрута пока не созданы</p>
   </section>
 </template>
 
@@ -59,8 +61,19 @@ export default {
 }
 
 .route-list__list {
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 0;
 
   list-style: none;
+}
+
+.route-list__notice {
+  margin-top: 20px;
+  margin-bottom: 0;
+  
+  font-size: 16px;
+
+  opacity: 0.7;
 }
 </style>
