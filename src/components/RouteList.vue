@@ -5,7 +5,7 @@
     <RouteForm @add-point="addPoint" />
 
     <ul class="route-list__list" v-if="points.length">
-      <draggable v-model="points">
+      <draggable :list="points">
         <RouteListItem
           v-for="point in points"
           :key="point.id"
