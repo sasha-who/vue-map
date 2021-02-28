@@ -7,19 +7,21 @@
     />
 
     <GmapMap
-      :center="center"
+      :center="$getConst('INITIAL_CENTER_LOCATION')"
       :zoom="14"
-      map-type-id="terrain"
       style="width: calc(100% - 320px); height: 100vh; margin-left: 320px;"
     >
       <GmapMarker
         :key="point.id"
         v-for="point in points"
-        :position="center"
+        :position="$getConst('INITIAL_CENTER_LOCATION')"
         :clickable="true"
         :draggable="true"
-        @click="center=center"
+        @click="center=$getConst('INITIAL_CENTER_LOCATION')"
+        @dragend="updateCoordinates($event.latLng, point)"
       />
+
+      <gmap-polyline :path.sync="path" :options="{ strokeColor:'#2c3e50'}" />
     </GmapMap>
   </div>
 </template>
@@ -31,16 +33,17 @@ export default {
   name: 'App',
   data() {
     return {
-      center: { lat: 57.47215240038789, lng: -4.211518416535753 },
-      points: [
-        { id: 1, title: 'Точка 1', position: this.center },
-        { id: 2, title: 'Точка 2', position: this.center },
-        { id: 3, title: 'Точка 3', position: this.center }
-      ]
+      points: [],
+      path: []
     }
   },
   components: {
     RouteList
+  },
+  watch: {
+    points(value) {
+      this.path = value.map((item) => item.position);
+    }
   },
   methods: {
     removePoint(id) {
@@ -48,6 +51,12 @@ export default {
     },
     addPoint(newPoint) {
       this.points.push(newPoint);
+    },
+    updateCoordinates(evt, point) { 
+      const currentPointIndex = this.points.findIndex((item) => item.id === point.id);
+
+      point.position = { lat: evt.lat(), lng: evt.lng() };
+      this.path.splice(currentPointIndex, 1, point.position);
     }
   }
 }
