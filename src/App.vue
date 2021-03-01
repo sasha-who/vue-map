@@ -19,7 +19,7 @@
         :clickable="true"
         :draggable="true"
         @click="center=point.position"
-        @dragend="updateCoordinates($event.latLng, point)"
+        @dragend="updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
       />
 
       <gmap-polyline :path.sync="path" :options="{ strokeColor:'#2c3e50'}" />
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import RouteList from '@/components/RouteList';
 
 export default {
@@ -62,6 +63,22 @@ export default {
 
       point.position = { lat: evt.lat(), lng: evt.lng() };
       this.path.splice(currentPointIndex, 1, point.position);
+    },
+    setAddress(evt, point) {
+      axios
+        .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${evt.lat()},${evt.lng()}&key=AIzaSyC0m6cM1EYezpN9-QyEQEO8BRAxWQah9UM`)
+        .then((response) => {
+          const addressResult = response.data.results[0];
+          const city = addressResult.address_components[2].long_name;
+          const street = addressResult.address_components[1].long_name;
+          const building = addressResult.address_components[0].long_name;
+
+          point.address = `${city}, ${street}, ${building}`;
+        })
+        .catch((error) => {
+          console.log(error);
+          point.address = 'не удалось распознать';
+        });
     }
   }
 }

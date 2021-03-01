@@ -23,7 +23,8 @@ export default {
       if (this.title.trim()) {
         const newPoint = {
           id: Date.now(),
-          title: this.title
+          title: this.title,
+          address: ''
         }
 
         this.$emit('add-point', newPoint);
