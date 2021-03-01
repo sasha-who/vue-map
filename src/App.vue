@@ -19,6 +19,7 @@
         :clickable="true"
         :draggable="true"
         @click="toggleInfoWindow(point)"
+        @dragstart="removeInfoWindowWhileDragging(point)"
         @dragend="updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
       />
 
@@ -106,6 +107,11 @@ export default {
       } else {
         this.isInfoWindowOpen = true;
         this.pointWithOpenWindowId = point.id;
+      }
+    },
+    removeInfoWindowWhileDragging(point) {
+      if (this.pointWithOpenWindowId === point.id && this.isInfoWindowOpen) {
+        this.isInfoWindowOpen = false;
       }
     }
   }
