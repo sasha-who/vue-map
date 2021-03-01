@@ -10,14 +10,15 @@
       :center="$getConst('INITIAL_CENTER_LOCATION')"
       :zoom="14"
       style="width: calc(100% - 320px); height: 100vh; margin-left: 320px;"
+      ref="map"
     >
       <GmapMarker
         :key="point.id"
         v-for="point in points"
-        :position="$getConst('INITIAL_CENTER_LOCATION')"
+        :position="point.position"
         :clickable="true"
         :draggable="true"
-        @click="center=$getConst('INITIAL_CENTER_LOCATION')"
+        @click="center=point.position"
         @dragend="updateCoordinates($event.latLng, point)"
       />
 
@@ -50,6 +51,10 @@ export default {
       this.points = this.points.filter((item) => item.id !== id);
     },
     addPoint(newPoint) {
+      const mapCenter = this.$refs.map.$mapObject.getCenter();
+
+      newPoint.position = { lat: mapCenter.lat(), lng: mapCenter.lng() };
+
       this.points.push(newPoint);
     },
     updateCoordinates(evt, point) { 

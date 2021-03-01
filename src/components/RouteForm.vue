@@ -23,8 +23,7 @@ export default {
       if (this.title.trim()) {
         const newPoint = {
           id: Date.now(),
-          title: this.title,
-          position: this.$getConst('INITIAL_CENTER_LOCATION')
+          title: this.title
         }
 
         this.$emit('add-point', newPoint);
