@@ -18,8 +18,15 @@
         :position="point.position"
         :clickable="true"
         :draggable="true"
-        @click="center=point.position"
+        @click="toggleInfoWindow(point)"
         @dragend="updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
+      />
+
+      <gmap-info-window
+        :options="infoOptions"
+        :position="infoWindowPosition"
+        :opened="isInfoWindowOpen"
+        @closeclick="isInfoWindowOpen = false"
       />
 
       <gmap-polyline :path.sync="path" :options="{ strokeColor:'#2c3e50'}" />
@@ -36,7 +43,17 @@ export default {
   data() {
     return {
       points: [],
-      path: []
+      path: [],
+      pointWithOpenWindowId: null,
+      infoWindowPosition: null,
+      isInfoWindowOpen: false,
+      infoOptions: {
+        content: '',
+        pixelOffset: {
+          width: 0,
+          height: -35
+        }
+      }
     }
   },
   components: {
@@ -79,6 +96,17 @@ export default {
           console.log(error);
           point.address = 'не удалось распознать';
         });
+    },
+    toggleInfoWindow(point) {
+      this.infoWindowPosition = point.position;
+      this.infoOptions.content = `${point.title}. Адрес: ${point.address}`;
+
+      if (this.pointWithOpenWindowId === point.id) {
+        this.isInfoWindowOpen = !this.isInfoWindowOpen;
+      } else {
+        this.isInfoWindowOpen = true;
+        this.pointWithOpenWindowId = point.id;
+      }
     }
   }
 }
