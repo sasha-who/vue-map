@@ -14,13 +14,14 @@
     >
       <GmapMarker
         :key="point.id"
-        v-for="point in points"
+        v-for="(point, index) in points"
         :position="point.position"
         :clickable="true"
         :draggable="true"
         @click="toggleInfoWindow(point)"
         @dragstart="removeInfoWindowWhileDragging(point)"
-        @dragend="updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
+        @drag="redrawPath($event.latLng, index)"
+        @dragend="redrawPath($event.latLng, index), updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
       />
 
       <gmap-info-window
@@ -77,10 +78,10 @@ export default {
       this.points.push(newPoint);
     },
     updateCoordinates(evt, point) { 
-      const currentPointIndex = this.points.findIndex((item) => item.id === point.id);
-
       point.position = { lat: evt.lat(), lng: evt.lng() };
-      this.path.splice(currentPointIndex, 1, point.position);
+    },
+    redrawPath(evt, index) {
+      this.path.splice(index, 1, { lat: evt.lat(), lng: evt.lng() });
     },
     setAddress(evt, point) {
       axios
