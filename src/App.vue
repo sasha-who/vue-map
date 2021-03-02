@@ -91,12 +91,12 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          point.address = 'не удалось распознать';
+          point.address = 'failed to recognize';
         });
     },
     toggleInfoWindow(point) {
       this.infoWindowPosition = point.position;
-      this.infoOptions.content = `${point.title}. Адрес: ${point.address}`;
+      this.infoOptions.content = `${point.title}. Address: ${point.address}`;
 
       if (this.pointWithOpenWindowId === point.id) {
         this.isInfoWindowOpen = !this.isInfoWindowOpen;
@@ -123,7 +123,7 @@ body {
   display: flex;
   height: 100vh;
 
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

@@ -4,7 +4,7 @@
       class="route-form__input"
       type="text"
       name="point"
-      placeholder="Введите название точки"
+      placeholder="Enter the name of the new point"
       v-model="title"
       @keyup.enter="addPoint"
     />

@@ -5,7 +5,7 @@
     <button
       class="route-list__delete-btn"
       type="button"
-      aria-label="Удалить"
+      aria-label="Delete point"
       @click="$emit('remove-point', point.id)"
     ></button>
   </li>

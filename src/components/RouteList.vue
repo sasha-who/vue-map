@@ -1,6 +1,6 @@
 <template>
   <section class="route-list">
-    <h2 class="route-list__title">Все точки маршрута</h2>
+    <h1 class="route-list__title">Route editor</h1>
 
     <RouteForm @add-point="addPoint" />
 
@@ -15,7 +15,7 @@
       </draggable>
     </ul>
 
-    <p class="route-list__notice" v-else>Точки маршрута пока не созданы</p>
+    <p class="route-list__notice" v-else>No points yet</p>
   </section>
 </template>
 
