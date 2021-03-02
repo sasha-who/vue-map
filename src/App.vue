@@ -31,7 +31,7 @@
         @closeclick="isInfoWindowOpen = false"
       />
 
-      <gmap-polyline :path.sync="path" :options="{ strokeColor:'#2c3e50'}" />
+      <gmap-polyline :path.sync="path" :options="{ strokeColor:'#896e99'}" />
     </GmapMap>
   </div>
 </template>
@@ -131,7 +131,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #2c3e50;
+  background-color: #624f6e;
 }
 
 @media (max-width: 768px) {

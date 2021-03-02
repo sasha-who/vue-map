@@ -55,7 +55,7 @@ export default {
 
   color: #ffffff;
 
-  background-color: #2c3e50;
+  background-color: #624f6e;
 }
 
 .route-list__title {

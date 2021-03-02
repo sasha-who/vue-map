@@ -35,6 +35,10 @@ export default {
   cursor: move;
 }
 
+.route-list__title {
+  padding-right: 15px;
+}
+
 .route-list__delete-btn {
   position: relative;
 
