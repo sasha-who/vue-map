@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <RouteList
       :points="points"
       @remove-point="removePoint"
@@ -9,7 +9,7 @@
     <GmapMap
       :center="$getConst('INITIAL_CENTER_LOCATION')"
       :zoom="14"
-      style="width: calc(100% - 320px); height: 100vh; margin-left: 320px;"
+      style="width: calc(100% - 320px); height: 100vh;"
       ref="map"
     >
       <GmapMarker
@@ -132,5 +132,9 @@ body {
 
 h1 {
   text-align: right;
+}
+
+.container {
+  display: flex;
 }
 </style>

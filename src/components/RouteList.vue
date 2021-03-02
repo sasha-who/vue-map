@@ -44,16 +44,14 @@ export default {
 
 <style>
 .route-list {
-  position: fixed;
-  top: 0;
-  left: 0;
-
   width: 300px;
-  min-height: 100vh;
+  max-height: calc(100vh - 120px);
   padding-top: 60px;
   padding-right: 10px;
   padding-bottom: 60px;
   padding-left: 10px;
+
+  overflow-y: auto;
 
   color: #ffffff;
 
