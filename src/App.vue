@@ -21,7 +21,7 @@
         @click="toggleInfoWindow(point)"
         @dragstart="removeInfoWindowWhileDragging(point)"
         @drag="redrawPath($event.latLng, index)"
-        @dragend="redrawPath($event.latLng, index), updateCoordinates($event.latLng, point), setAddress($event.latLng, point)"
+        @dragend="redrawPath($event.latLng, index), updateCoordinates($event.latLng, point), setAddress($event.latLng.lat(), $event.latLng.lng(), point)"
       />
 
       <gmap-info-window
@@ -72,20 +72,24 @@ export default {
     },
     addPoint(newPoint) {
       const mapCenter = this.$refs.map.$mapObject.getCenter();
+      const mapCenterLat = mapCenter.lat();
+      const mapCenterLng = mapCenter.lng();
 
-      newPoint.position = { lat: mapCenter.lat(), lng: mapCenter.lng() };
+      newPoint.position = { lat: mapCenterLat, lng: mapCenterLng };
 
       this.points.push(newPoint);
+
+      this.setAddress(mapCenterLat, mapCenterLng, newPoint);
     },
-    updateCoordinates(evt, point) { 
-      point.position = { lat: evt.lat(), lng: evt.lng() };
+    updateCoordinates(latLng, point) { 
+      point.position = { lat: latLng.lat(), lng: latLng.lng() };
     },
-    redrawPath(evt, index) {
-      this.path.splice(index, 1, { lat: evt.lat(), lng: evt.lng() });
+    redrawPath(latLng, index) {
+      this.path.splice(index, 1, { lat: latLng.lat(), lng: latLng.lng() });
     },
-    setAddress(evt, point) {
+    setAddress(lat, lng, point) {
       axios
-        .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${evt.lat()},${evt.lng()}&key=AIzaSyC0m6cM1EYezpN9-QyEQEO8BRAxWQah9UM`)
+        .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC0m6cM1EYezpN9-QyEQEO8BRAxWQah9UM`)
         .then((response) => {
           point.address = `${response.data.results[0].formatted_address}`;
         })
