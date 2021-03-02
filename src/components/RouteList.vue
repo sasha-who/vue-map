@@ -44,7 +44,7 @@ export default {
 
 <style>
 .route-list {
-  width: 300px;
+  width: 25%;
   max-height: calc(100vh - 120px);
   padding-top: 60px;
   padding-right: 10px;

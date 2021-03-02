@@ -9,7 +9,7 @@
     <GmapMap
       :center="$getConst('INITIAL_CENTER_LOCATION')"
       :zoom="14"
-      style="width: calc(100% - 320px); height: 100vh;"
+      style="width: 75%; height: 100vh;"
       ref="map"
     >
       <GmapMarker
@@ -119,22 +119,24 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
 body {
   margin: 0;
 }
 
-h1 {
-  text-align: right;
-}
-
 .container {
   display: flex;
+  height: 100vh;
+
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 768px;
+  }
 }
 </style>
