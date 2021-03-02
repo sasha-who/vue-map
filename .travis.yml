@@ -3,6 +3,9 @@ node_js:
   - "node"
 cache: npm
 script: npm run build
+before_deploy:
+  - npm run build
+  - echo -e "node_modules\npackage-lock.json" > .gitignore
 deploy:
   provider: pages
   skip_cleanup: true
