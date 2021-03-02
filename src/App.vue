@@ -87,12 +87,7 @@ export default {
       axios
         .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${evt.lat()},${evt.lng()}&key=AIzaSyC0m6cM1EYezpN9-QyEQEO8BRAxWQah9UM`)
         .then((response) => {
-          const addressResult = response.data.results[0];
-          const city = addressResult.address_components[2].long_name;
-          const street = addressResult.address_components[1].long_name;
-          const building = addressResult.address_components[0].long_name;
-
-          point.address = `${city}, ${street}, ${building}`;
+          point.address = `${response.data.results[0].formatted_address}`;
         })
         .catch((error) => {
           console.log(error);
