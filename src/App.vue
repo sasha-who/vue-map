@@ -8,7 +8,7 @@
 
     <GmapMap
       :center="$getConst('INITIAL_CENTER_LOCATION')"
-      :zoom="14"
+      :zoom="$getConst('ZOOM')"
       style="width: 75%; height: 100vh;"
       ref="map"
     >
@@ -51,12 +51,9 @@ export default {
       isInfoWindowOpen: false,
       infoOptions: {
         content: '',
-        pixelOffset: {
-          width: 0,
-          height: -35
-        }
+        pixelOffset: this.$getConst('INFO_WINDOW_OFFSET')
       }
-    }
+    };
   },
   components: {
     RouteList
