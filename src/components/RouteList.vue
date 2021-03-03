@@ -25,7 +25,12 @@ import RouteForm from '@/components/RouteForm';
 import RouteListItem from '@/components/RouteListItem';
 
 export default {
-  props: ['points'],
+  props: {
+    points: {
+      type: Array,
+      required: true
+    }
+  },
   components: {
     draggable,
     RouteForm,
